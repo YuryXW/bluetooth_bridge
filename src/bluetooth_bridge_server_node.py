@@ -53,10 +53,15 @@ class Application:
         rospy.init_node(node_name, anonymous=False)
 
         # Getting parameters
-        self.input_topic  = rospy.get_param("~/send_topic", self.input_topic)
-        self.output_topic = rospy.get_param("~/recv_topic", self.output_topic)
-        self.status_topic = rospy.get_param("~/status_topic", self.status_topic)
-        self.bt_channel   = rospy.get_param("~/rfcomm_channel", self.bt_channel)
+        self.input_topic  = rospy.get_param("~send_topic", self.input_topic)
+        self.output_topic = rospy.get_param("~recv_topic", self.output_topic)
+        self.status_topic = rospy.get_param("~status_topic", self.status_topic)
+        self.bt_channel   = rospy.get_param("~rfcomm_channel", self.bt_channel)
+
+        print TAG, "param: input_topic  =", self.input_topic
+        print TAG, "param: output_topic =", self.output_topic
+        print TAG, "param: status_topic =", self.status_topic
+        print TAG, "param: bt_channel   =", self.bt_channel
 
         # Subscribers
         self.sub        = rospy.Subscriber(self.input_topic, String, self.send_callback)
@@ -92,7 +97,7 @@ class Application:
                         data = self.client_sock.recv(1024)
                         print TAG, "Received: ", data
                         self.pub.publish(data)
-                        
+
             except Exception, e:
                 self.is_connected = False
                 self.server_sock.close()
@@ -115,7 +120,7 @@ class Application:
     def send_callback(self, message):
         if self.is_connected:
             print TAG, "Sending:", message.data
-            self.client_sock.send(message.data)
+            self.client_sock.send(message.data+"\n")
 
 #------------------------------------- Main -------------------------------------#
 
