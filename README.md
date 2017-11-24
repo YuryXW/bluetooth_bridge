@@ -1,4 +1,7 @@
 # bluetooth_bridge
 ROS Bluetooth Bridge node
 
-NOT READY FOR USAGE YET!
+ROS Bluetooth package suitable for CSP 2017 class, provides simple demo of using bluetooth together with ROS.
+CSP Students, you are free to use this package in your projects.
+
+Will remain untouched until January 15 2018.
